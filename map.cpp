@@ -31,7 +31,6 @@ public:
 
       for (int i = 0; i < map_width; i++) {
          for (int j = 0; j < map_height; j++) {
-            cout << i*j << endl;
             starting_x = map_start_x+i*tile_size+(i-1)*tile_distance;
             starting_y = map_start_y+j*tile_size+(j-1)*tile_distance;
             al_draw_filled_rectangle(starting_x, starting_y, starting_x + tile_size, starting_y + tile_size, tile_color);
