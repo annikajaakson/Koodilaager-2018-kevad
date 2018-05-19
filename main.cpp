@@ -4,6 +4,7 @@
 #include <allegro5/allegro_primitives.h>
 #include "map.cpp"
 #include "laser.cpp"
+#include <vector>
 
 using namespace std;
 
@@ -28,6 +29,8 @@ int main(int argc, char *argv[]) {
 
    Map tilemap = Map(800, 600);
    Laser laser = Laser(&tilemap, 800, 600);
+   vector<Laser> lasers;
+   lasers.push_back(laser);
 
    al_clear_to_color(bg_color);
 
@@ -41,7 +44,9 @@ int main(int argc, char *argv[]) {
       }
 
       tilemap.draw(tile_color);
-      laser.draw(laser_color);
+      for (int i = 0; i < lasers.size(); i++) {
+         lasers[i].draw(laser_color);
+      }
 
       al_flip_display();
       al_rest(0.01f);
