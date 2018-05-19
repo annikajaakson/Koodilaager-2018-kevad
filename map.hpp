@@ -8,7 +8,7 @@
 
 class Map {
 public:
-    int tile_size;
+   int tile_size;
    int tile_distance;
    int map_width;
    int map_height;
@@ -16,6 +16,6 @@ public:
    int map_start_x;
    int map_start_y;
 
-   Map(int screen_width, int screen_height);
-   void draw(ALLEGRO_COLOR tile_color);
+   Map(int, int);
+   void draw(ALLEGRO_COLOR);
 };
