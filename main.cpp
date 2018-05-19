@@ -2,7 +2,8 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
-#include "map.cpp"
+#include "map.hpp"
+#include "blok.cpp"
 #include "laser.cpp"
 #include <vector>
 
@@ -16,6 +17,7 @@ int main(int argc, char *argv[]) {
    ALLEGRO_DISPLAY *screen = al_create_display(800, 600);
    ALLEGRO_COLOR bg_color = al_map_rgb(50, 50, 50);
    ALLEGRO_COLOR tile_color = al_map_rgb(100, 100, 100);
+   ALLEGRO_COLOR block_color = al_map_rgb(255, 255, 255);
    ALLEGRO_COLOR laser_color = al_map_rgb(255, 20, 20);
    ALLEGRO_EVENT_QUEUE *events = al_create_event_queue();
    ALLEGRO_EVENT next_event;
@@ -28,13 +30,13 @@ int main(int argc, char *argv[]) {
    al_register_event_source(events, al_get_mouse_event_source());
 
    Map tilemap = Map(800, 600);
+   Block allblocks = Block();
    Laser laser = Laser(&tilemap, 800, 600);
    vector<Laser> lasers;
    lasers.push_back(laser);
 
-   al_clear_to_color(bg_color);
-
    while (1) {
+      al_clear_to_color(bg_color);
       al_get_next_event(events, &next_event);
 
       if (next_event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
@@ -44,9 +46,12 @@ int main(int argc, char *argv[]) {
       }
 
       tilemap.draw(tile_color);
+
       for (int i = 0; i < lasers.size(); i++) {
          lasers[i].draw(laser_color);
       }
+
+      allblocks.draw(block_color);
 
       al_flip_display();
       al_rest(0.01f);
