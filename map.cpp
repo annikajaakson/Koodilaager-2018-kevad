@@ -17,7 +17,7 @@ public:
 
    Map(int screen_width, int screen_height) {
       tile_size = 40;
-      tile_distance = 5;
+      tile_distance = 1;
       map_width = 10;
       map_height = 10;
 
