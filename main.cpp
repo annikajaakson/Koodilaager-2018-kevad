@@ -3,6 +3,7 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
 #include "map.cpp"
+#include "blok.cpp"
 
 using namespace std;
 
@@ -14,6 +15,7 @@ int main(int argc, char *argv[]) {
    ALLEGRO_DISPLAY *screen = al_create_display(800, 600);
    ALLEGRO_COLOR bg_color = al_map_rgb(50, 50, 50);
    ALLEGRO_COLOR tile_color = al_map_rgb(100, 100, 100);
+   ALLEGRO_COLOR block_color = al_map_rgb(255, 255, 255);
    ALLEGRO_EVENT_QUEUE *events = al_create_event_queue();
    ALLEGRO_EVENT next_event;
 
@@ -25,6 +27,7 @@ int main(int argc, char *argv[]) {
    al_register_event_source(events, al_get_mouse_event_source());
 
    Map tilemap = Map(800, 600);
+   Block allblocks = Block();
 
    al_clear_to_color(bg_color);
 
@@ -35,9 +38,12 @@ int main(int argc, char *argv[]) {
          al_destroy_display(screen);
          al_destroy_event_queue(events);
          break;
-      }
+      } else if (next_event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+
+
 
       tilemap.draw(tile_color);
+      allblocks.draw(block_color);
 
       al_flip_display();
       al_rest(0.01f);
