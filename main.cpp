@@ -2,8 +2,9 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
-#include "map.cpp"
+#include "map.hpp"
 #include "blok.cpp"
+#include "laser.cpp"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ int main(int argc, char *argv[]) {
    ALLEGRO_COLOR bg_color = al_map_rgb(50, 50, 50);
    ALLEGRO_COLOR tile_color = al_map_rgb(100, 100, 100);
    ALLEGRO_COLOR block_color = al_map_rgb(255, 255, 255);
+   ALLEGRO_COLOR laser_color = al_map_rgb(255, 20, 20);
    ALLEGRO_EVENT_QUEUE *events = al_create_event_queue();
    ALLEGRO_EVENT next_event;
 
@@ -28,6 +30,7 @@ int main(int argc, char *argv[]) {
 
    Map tilemap = Map(800, 600);
    Block allblocks = Block();
+   Laser laser = Laser(&tilemap, 800, 600);
 
    al_clear_to_color(bg_color);
 
@@ -38,15 +41,17 @@ int main(int argc, char *argv[]) {
          al_destroy_display(screen);
          al_destroy_event_queue(events);
          break;
-      } else if (next_event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+      }
 
 
 
       tilemap.draw(tile_color);
       allblocks.draw(block_color);
+      laser.draw(laser_color);
 
       al_flip_display();
       al_rest(0.01f);
+
    }
 
    return 0;
